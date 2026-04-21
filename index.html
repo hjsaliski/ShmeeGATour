@@ -554,7 +554,8 @@ function tc(t){ return t==='Gene-o-cide'?'team-genocide':t==='Banshees'?'team-ba
 
 function renderLB(data, id) {
   const isFullLB = id === 'full-lb';
-  document.getElementById(id).innerHTML = data.map((p,i) => `
+  const display = isFullLB ? data : data.slice(0, 10);
+  document.getElementById(id).innerHTML = display.map((p,i) => `
     <tr>
       <td class="pos-cell ${i===0?'pos-1':''}">${p.pos}</td>
       <td><span class="player-name">${p.player}</span><span class="team-badge ${tc(p.team)}">${p.team}</span></td>

@@ -251,7 +251,7 @@
     <div class="hero-stats">
       <div class="hero-stat"><span class="hero-stat-val">4</span><span class="hero-stat-label">Done</span></div>
       <div class="hero-stat"><span class="hero-stat-val">10</span><span class="hero-stat-label">Total Events</span></div>
-      <div class="hero-stat"><span class="hero-stat-val" id="stat-leader">—</span><span class="hero-stat-label">Leader</span></div>
+      <div class="hero-stat"><span class="hero-stat-val" id="stat-leader" style="font-size:1rem;line-height:1.2;">—</span><span id="stat-leader-pts" style="color:var(--gold);font-family:'Libre Baskerville',serif;font-size:0.65rem;display:block;margin:0.3rem 0 0.1rem;letter-spacing:0.08em;"></span><span class="hero-stat-label">Leader</span></div>
       <div class="hero-stat"><span class="hero-stat-val">2–2</span><span class="hero-stat-label">Shmeet's Cup</span></div>
     </div>
     <div class="hero-cta">
@@ -541,7 +541,8 @@ function renderSchedule() {
 // RENDER — Home widgets
 // ═══════════════════════════════════════════════
 function renderHome() {
-  document.getElementById('stat-leader').textContent = STANDINGS[0].player.split(' ')[1] || STANDINGS[0].player;
+  document.getElementById('stat-leader').textContent = STANDINGS[0].player;
+  document.getElementById('stat-leader-pts').textContent = STANDINGS[0].pts.toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:1}) + ' pts';
 
   const done = SCHEDULE.filter(t => t.status==='completed' && t.winner);
   document.getElementById('recent-results').innerHTML = done.map(t => `

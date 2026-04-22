@@ -11,7 +11,7 @@
     --navy-mid: #1a3d3d;
     --green: #2d6b4a;
     --green-light: #3a8a5f;
-    --cream: #f5f0e8;
+    --cream: #f9f6f0;
     --cream-dark: #ede6d6;
     --orange: #c4622d;
     --orange-light: #d4733e;
@@ -290,7 +290,7 @@
   <div class="hero">
     <div class="hero-badge">2026 Season · In Progress</div>
     <h1>The ShmeeGA<br><em>Tour</em></h1>
-    <p class="hero-sub">Where legends are made, one stroke at a time</p>
+    <p class="hero-sub">Where legends are made, we be stroking</p>
     <div class="hero-stats">
       <div class="hero-stat"><span class="hero-stat-val">4</span><span class="hero-stat-label">Done</span></div>
       <div class="hero-stat"><span class="hero-stat-val">10</span><span class="hero-stat-label">Total Events</span></div>
@@ -323,8 +323,8 @@
         <a class="section-link" onclick="showPage('standings')">Full Standings →</a>
       </div>
     </div>
-    <table class="lb-table"><thead><tr><th>Pos</th><th>Player</th><th>Team</th><th style="text-align:right">Tour Points</th></tr></thead>
-    <tbody id="home-lb"><tr><td colspan="4" class="loading">Loading…</td></tr></tbody></table>
+    <table class="lb-table"><thead><tr><th>Pos</th><th>Player</th><th>Team</th><th style="text-align:center">Hdcp</th><th style="text-align:right">Tour Points</th></tr></thead>
+    <tbody id="home-lb"><tr><td colspan="5" class="loading">Loading…</td></tr></tbody></table>
   </div>
 
   <div class="section" style="padding-top:0">
@@ -355,8 +355,8 @@
       <div class="section-title">Full <span>Standings</span></div>
       <div class="live-badge"><div class="live-dot"></div> Google Sheets</div>
     </div>
-    <table class="lb-table"><thead><tr><th>Pos</th><th>Player</th><th style="text-align:center">Wins</th><th style="text-align:center">Top 5</th><th style="text-align:center">Top 10</th><th style="text-align:right">Tour Points</th></tr></thead>
-    <tbody id="full-lb"><tr><td colspan="6" class="loading">Loading…</td></tr></tbody></table>
+    <table class="lb-table"><thead><tr><th>Pos</th><th>Player</th><th style="text-align:center">Hdcp</th><th style="text-align:center">Wins</th><th style="text-align:center">Top 5</th><th style="text-align:center">Top 10</th><th style="text-align:right">Tour Points</th></tr></thead>
+    <tbody id="full-lb"><tr><td colspan="7" class="loading">Loading…</td></tr></tbody></table>
   </div>
 </div>
 
@@ -489,16 +489,16 @@ function applyLogo() {
 // STATIC DATA (swapped for live fetch once sheet confirmed public)
 // ═══════════════════════════════════════════════
 const STANDINGS = [
-  {pos:'1',  player:'Philip Gould',        team:'Gene-o-cide', pts:15302.7},
-  {pos:'T2', player:'Burke McManus',        team:'Gene-o-cide', pts:10000.0},
-  {pos:'T2', player:'Zac Novak',            team:'Gene-o-cide', pts:10000.0},
-  {pos:'4',  player:'Jordan Germershausen', team:'Banshees',    pts:7968.8},
-  {pos:'5',  player:'Collin Pierson',       team:'Gene-o-cide', pts:5175.8},
-  {pos:'T6', player:'Alex Pfaff',           team:'Gene-o-cide', pts:3750.0},
-  {pos:'T6', player:'Drew Wicks',           team:'Gene-o-cide', pts:3750.0},
-  {pos:'T6', player:'JP McManus',           team:'Gene-o-cide', pts:3750.0},
-  {pos:'9',  player:'Brandon Filo',         team:'Banshees',    pts:2500.0},
-  {pos:'10', player:'Alex McNulty',         team:'Banshees',    pts:1552.7},
+  {pos:'1',  player:'Philip Gould',        team:'Gene-o-cide', hdcp:10, pts:15302.7},
+  {pos:'T2', player:'Burke McManus',        team:'Gene-o-cide', hdcp:14, pts:10000.0},
+  {pos:'T2', player:'Zac Novak',            team:'Gene-o-cide', hdcp:12, pts:10000.0},
+  {pos:'4',  player:'Jordan Germershausen', team:'Banshees',    hdcp:16, pts:7968.8},
+  {pos:'5',  player:'Collin Pierson',       team:'Gene-o-cide', hdcp:11, pts:5175.8},
+  {pos:'T6', player:'Alex Pfaff',           team:'Gene-o-cide', hdcp:18, pts:3750.0},
+  {pos:'T6', player:'Drew Wicks',           team:'Gene-o-cide', hdcp:15, pts:3750.0},
+  {pos:'T6', player:'JP McManus',           team:'Gene-o-cide', hdcp:13, pts:3750.0},
+  {pos:'9',  player:'Brandon Filo',         team:'Banshees',    hdcp:20, pts:2500.0},
+  {pos:'10', player:'Alex McNulty',         team:'Banshees',    hdcp:17, pts:1552.7},
 ];
 
 const SCHEDULE = [
@@ -558,12 +558,14 @@ function renderLB(data, id) {
   document.getElementById(id).innerHTML = display.map((p,i) => `
     <tr>
       <td class="pos-cell ${i===0?'pos-1':''}">${p.pos}</td>
-      <td><span class="player-name">${p.player}</span><span class="team-badge ${tc(p.team)}">${p.team}</span></td>
+      <td><span class="player-name">${p.player}</span></td>
+      <td><span class="team-badge ${tc(p.team)}">${p.team}</span></td>
+      <td style="text-align:center;font-family:'Playfair Display',serif;color:var(--text-mid);">${p.hdcp ?? '—'}</td>
       ${isFullLB ? `
       <td style="text-align:center;font-family:'Playfair Display',serif;font-weight:600;color:var(--navy);">${p.wins ?? 0}</td>
       <td style="text-align:center;font-family:'Playfair Display',serif;color:var(--text-mid);">${p.top5 ?? 0}</td>
       <td style="text-align:center;font-family:'Playfair Display',serif;color:var(--text-mid);">${p.top10 ?? 0}</td>
-      ` : '<td></td>'}
+      ` : ''}
       <td class="pts-cell">${p.pts.toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:1})}</td>
     </tr>`).join('');
 }
@@ -764,6 +766,7 @@ async function init() {
           pos:    col0,
           player: col1,
           team:   r.c[2] ? String(r.c[2].v || '').trim() : '',
+          hdcp:   '—',
           pts:    pts,
           wins:   r.c[4] ? (r.c[4].v || 0) : 0,
           top5:   r.c[5] ? (r.c[5].v || 0) : 0,
